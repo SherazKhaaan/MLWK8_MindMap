@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-Armed Bandits Mind Map</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f8f9fa;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .mindmap {
+      position: relative;
+      width: 1100px;
+      height: 750px;
+      margin: 20px 0;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .node {
+      position: absolute;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      font-weight: bold;
+    }
+    .node:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    /* Colors: Red = Central concept, Blue = Major categories, Green = Details */
+    .red {
+      background-color: #ffcccc;
+      border: 2px solid #e60000;
+      color: #990000;
+    }
+    .blue {
+      background-color: #cce5ff;
+      border: 2px solid #0066cc;
+      color: #004080;
+    }
+    .green {
+      background-color: #ccffcc;
+      border: 2px solid #00cc00;
+      color: #006600;
+      font-weight: normal;
+    }
+    /* Info panel styles */
+    #infoPanel {
+      width: 1100px;
+      min-height: 150px;
+      padding: 15px;
+      margin-top: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: none;
+    }
+    .infoTitle {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 5px;
+    }
+    .infoContent {
+      line-height: 1.5;
+    }
+    svg line {
+      stroke: #999;
+      stroke-width: 2;
+    }
+    .legend {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+    }
+    .legendItem {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .legendBox {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Multi-Armed Bandits Mind Map</h1>
+    
+    <div class="mindmap" id="mindmap">
+      <!-- SVG for connecting lines -->
+      <svg width="1100" height="750" style="position: absolute; top: 0; left: 0;">
+        <!-- Lines from central node (red) to blue nodes -->
+        <line x1="550" y1="350" x2="150" y2="100" />
+        <line x1="550" y1="350" x2="950" y2="100" />
+        <line x1="550" y1="350" x2="150" y2="600" />
+        <line x1="550" y1="350" x2="950" y2="600" />
+        
+        <!-- Sub-branches from "Key Idea & Problem Definition" -->
+        <line x1="150" y1="100" x2="50" y2="30" />
+        <line x1="150" y1="100" x2="50" y2="170" />
+        <line x1="150" y1="100" x2="150" y2="180" />
+        
+        <!-- Sub-branches from "Algorithms" -->
+        <line x1="950" y1="100" x2="850" y2="30" />
+        <line x1="950" y1="100" x2="1050" y2="30" />
+        <line x1="950" y1="100" x2="950" y2="180" />
+        
+        <!-- Sub-branches from "Regret" -->
+        <line x1="150" y1="600" x2="50" y2="520" />
+        <line x1="150" y1="600" x2="50" y2="680" />
+        <line x1="150" y1="600" x2="150" y2="680" />
+        
+        <!-- Sub-branches from "Motivations & Applications" -->
+        <line x1="950" y1="600" x2="850" y2="520" />
+        <line x1="950" y1="600" x2="1050" y2="520" />
+        <line x1="950" y1="600" x2="950" y2="680" />
+      </svg>
+      
+      <!-- Central Node -->
+      <div class="node red" style="width: 220px; top: 320px; left: 440px;"
+           onclick="showInfo('Stochastic Multi-Armed Bandits', '<ul><li><span class=\'highlight\'>Overview:</span> A framework where a decision maker (gambler) chooses among several options (arms) to maximize cumulative reward.</li><li>Focuses on balancing exploration and exploitation.</li></ul>')">
+        Stochastic Multi-Armed Bandits
+      </div>
+      
+      <!-- Blue Node: Key Idea & Problem Definition -->
+      <div class="node blue" style="width: 240px; top: 30px; left: 50px;"
+           onclick="showInfo('Key Idea & Problem Definition', '<ul><li><span class=\'highlight\'>Analogy:</span> A gambler choosing among slot machines.</li><li><span class=\'highlight\'>Trade-off:</span> Exploration vs. Exploitation.</li><li>Formal Setup: K arms with i.i.d rewards, unknown means (µ<sub>i</sub>), ordered by performance.</li></ul>')">
+        Key Idea &amp; Problem Definition
+      </div>
+      <!-- Green nodes for Key Idea branch -->
+      <div class="node green" style="width: 180px; top: -10px; left: -10px;"
+           onclick="showInfo('Analogy', '<ul><li>Imagine a row of slot machines (one-armed bandits).</li><li>The gambler must decide which machines to play and in what order.</li></ul>')">
+        Analogy: Gambler &amp; Slot Machines
+      </div>
+      <div class="node green" style="width: 180px; top: 90px; left: -10px;"
+           onclick="showInfo('Exploration vs. Exploitation', '<ul><li>Exploring new arms vs. exploiting the best-known arm.</li><li>This trade-off is central to the bandit problem.</li></ul>')">
+        Exploration vs. Exploitation
+      </div>
+      <div class="node green" style="width: 180px; top: 160px; left: 50px;"
+           onclick="showInfo('Formal Definition', '<ul><li>There are K arms.</li><li>Each arm i gives an i.i.d reward X<sub>i,t</sub> in [0,1] with unknown mean µ<sub>i</sub>.</li></ul>')">
+        Formal Definition
+      </div>
+      
+      <!-- Blue Node: Algorithms -->
+      <div class="node blue" style="width: 220px; top: 30px; left: 830px;"
+           onclick="showInfo('Algorithms', '<ul><li>Explore-First: Initially explore each arm, then exploit the best.</li><li>Epsilon-Greedy: Random exploration with probability ε, otherwise exploit.</li><li>UCB: Choose arm with highest upper confidence bound (estimate + uncertainty).</li></ul>')">
+        Algorithms
+      </div>
+      <!-- Green nodes for Algorithms branch -->
+      <div class="node green" style="width: 200px; top: -10px; left: 800px;"
+           onclick="showInfo('Explore-First Algorithm', '<ul><li>Explore each arm τ times.</li><li>Then select the arm with highest average reward for exploitation.</li><li>Regret bound: O(T<sup>2/3</sup>(K log T)<sup>1/3</sup>).</li></ul>')">
+        Explore-First
+      </div>
+      <div class="node green" style="width: 200px; top: 90px; left: 1030px;"
+           onclick="showInfo('Epsilon-Greedy', '<ul><li>With probability ε, choose an arm at random.</li><li>Otherwise, choose the best-known arm.</li></ul>')">
+        Epsilon-Greedy
+      </div>
+      <div class="node green" style="width: 200px; top: 160px; left: 830px;"
+           onclick="showInfo('UCB Algorithm', '<ul><li>Compute UCB: empirical mean + confidence radius.</li><li>Select the arm with the highest UCB value.</li><li>Adapts to uncertainty; typically achieves lower regret.</li></ul>')">
+        UCB
+      </div>
+      
+      <!-- Blue Node: Regret -->
+      <div class="node blue" style="width: 220px; top: 630px; left: 50px;"
+           onclick="showInfo('Regret', '<ul><li>Regret = (Optimal cumulative reward) - (Obtained cumulative reward).</li><li>Measures the cost of not always playing the best arm.</li><li>Analysis uses concentration bounds (Hoeffding, Markov, LLN).</li></ul>')">
+        Regret
+      </div>
+      <!-- Green nodes for Regret branch -->
+      <div class="node green" style="width: 200px; top: 560px; left: -10px;"
+           onclick="showInfo('Definition', '<ul><li>Regret R(T) = Tµ<sub>1</sub> - ∑<sub>t=1</sub><sup>T</sup> E[X<sub>I<sub>t</sub>,t</sub>].</li><li>Represents the performance gap to the optimal strategy.</li></ul>')">
+        Definition
+      </div>
+      <div class="node green" style="width: 200px; top: 630px; left: -10px;"
+           onclick="showInfo('Performance Measure', '<ul><li>A lower regret means the algorithm is closer to the optimal strategy.</li><li>Key for theoretical analysis and comparisons.</li></ul>')">
+        Performance Measure
+      </div>
+      <div class="node green" style="width: 200px; top: 700px; left: 50px;"
+           onclick="showInfo('Concentration Bounds', '<ul><li>Tools like Hoeffding’s Inequality help bound the regret.</li></ul>')">
+        Concentration Bounds
+      </div>
+      
+      <!-- Blue Node: Motivations & Applications -->
+      <div class="node blue" style="width: 260px; top: 630px; left: 830px;"
+           onclick="showInfo('Motivations &amp; Applications', '<ul><li>Online Advertising: Optimize ad placements.</li><li>Recommendation Systems: Personalize content.</li><li>Clinical Trials: Allocate patients efficiently.</li><li>Dynamic Pricing: Adjust prices in real-time.</li><li>Website Optimization: A/B testing for design improvements.</li><li>Networking: Adaptive routing in telecommunications.</li></ul>')">
+        Motivations &amp; Applications
+      </div>
+      <!-- Green nodes for Applications branch -->
+      <div class="node green" style="width: 200px; top: 560px; left: 780px;"
+           onclick="showInfo('Online Advertising &amp; Recommendations', '<ul><li>Improve user engagement and revenue.</li></ul>')">
+        Advertising &amp; Recommendations
+      </div>
+      <div class="node green" style="width: 200px; top: 630px; left: 1080px;"
+           onclick="showInfo('Clinical Trials &amp; Pricing', '<ul><li>Efficient treatment allocation and dynamic pricing.</li></ul>')">
+        Clinical Trials &amp; Pricing
+      </div>
+      <div class="node green" style="width: 200px; top: 700px; left: 780px;"
+           onclick="showInfo('Website &amp; Networking', '<ul><li>Optimize designs and data routing.</li></ul>')">
+        Website &amp; Networking
+      </div>
+      
+    </div>
+    
+    <!-- Information Panel -->
+    <div id="infoPanel">
+      <div class="infoTitle" id="infoTitle">Click on a concept to see details</div>
+      <div class="infoContent" id="infoContent">
+        Select any node in the mind map to display detailed information about that concept.
+      </div>
+    </div>
+    
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legendItem">
+        <div class="legendBox red"></div>
+        <span>Big Picture</span>
+      </div>
+      <div class="legendItem">
+        <div class="legendBox blue"></div>
+        <span>Major Categories</span>
+      </div>
+      <div class="legendItem">
+        <div class="legendBox green"></div>
+        <span>Details</span>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function showInfo(title, content) {
+      document.getElementById("infoPanel").style.display = "block";
+      document.getElementById("infoTitle").textContent = title;
+      document.getElementById("infoContent").innerHTML = content;
+    }
+  </script>
+</body>
+</html>
